@@ -1,0 +1,30 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Unit tests
+        run: python -m unittest discover -s testes -v
+      - name: Commands run (English and Portuguese)
+        run: |
+          python -m outagelog --language en demo --no-open --out demo-en.html
+          python -m outagelog --idioma pt demo --nao-abrir --saida demo-pt.html
+          python -m outagelog example-config > /dev/null
+          python -m outagelog --help > /dev/null
+      - name: Shell scripts
+        run: |
+          for f in *.sh; do sh -n "$f"; done
+          shellcheck install.sh uninstall.sh

@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+*.pyz
+.venv/
+venv/
+.idea/
+.vscode/
+*.swp
+# Reports and logs generated while testing
+relatorio-*.html
+outage-report-*.html
+demo-report-*.html
+samples-*.csv

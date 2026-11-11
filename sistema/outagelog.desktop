@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Name=OutageLog
+GenericName=Internet outage monitor
+GenericName[pt_BR]=Monitor de quedas de internet
+Comment=Notifies you when the internet drops and makes the outage report
+Comment[pt_BR]=Avisa quando a internet cai e gera o relatório de quedas
+Exec=/usr/local/bin/outagelog tray
+Icon=outagelog
+Terminal=false
+Categories=Network;Monitor;
+Keywords=internet;outage;network;connection;provider;queda;rede;conexão;operadora;
+X-GNOME-Autostart-enabled=true
+X-GNOME-Autostart-Delay=5

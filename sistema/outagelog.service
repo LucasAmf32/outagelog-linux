@@ -1,0 +1,45 @@
+[Unit]
+Description=OutageLog - registro de quedas de internet
+Documentation=https://github.com/BoazCohenJ/OutageLog
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=outagelog
+Group=outagelog
+ExecStart=/usr/local/bin/outagelog --config /etc/outagelog.ini --dados /var/lib/outagelog rodar
+Restart=always
+RestartSec=5
+
+# Pasta dos logs (/var/lib/outagelog), legível por todos para "outagelog status" e "outagelog relatorio".
+StateDirectory=outagelog
+StateDirectoryMode=0755
+UMask=0022
+
+# Só a permissão de fazer ping; nada mais.
+AmbientCapabilities=CAP_NET_RAW
+CapabilityBoundingSet=CAP_NET_RAW
+NoNewPrivileges=yes
+
+# Isolamento: não enxerga /home, não escreve fora da própria pasta, só usa rede IP.
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX AF_NETLINK
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+SystemCallArchitectures=native
+
+[Install]
+WantedBy=multi-user.target
